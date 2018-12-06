@@ -5,11 +5,14 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
-
 const index = require('./routes/index')
 const users = require('./routes/users')
-
 const logUtil = require('./utils/log_util')
+
+/* 
+api
+*/
+const api = require('./routes/api/user_router')
 
 // error handler
 onerror(app)
@@ -48,12 +51,14 @@ app.use(async (ctx, next) => {
     //记录异常日志
     logUtil.logError(ctx, error, ms);
   }
-
 })
+//添加格式化处理响应结果的中间件，在添加路由之前调用
+//仅对/api开头的url进行格式化处理
+// app.use(response_formatter('^/api'));
 
-// routes
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
+app.use(api.routes(), api.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

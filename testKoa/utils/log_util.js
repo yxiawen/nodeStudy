@@ -24,7 +24,7 @@ logUtil.logResponse = function (ctx, resTime) {
 };
 
 
-// 格式化相应日志
+// 格式化响应日志
 var formatRes = function (ctx, resTime) {
   var logText = new String();
 
@@ -48,7 +48,6 @@ var formatRes = function (ctx, resTime) {
 
 
 // 格式化错误日志
-
 var formatError = function (ctx, err, resTime) {
   var logText = new String()
 
@@ -74,7 +73,7 @@ var formatError = function (ctx, err, resTime) {
 }
 
 // 格式化请求日志
-var formateReqLog = function (req, resTime) {
+var formatReqLog = function (req, resTime) {
   var logText = new String()
 
   var method = req.method
