@@ -33,7 +33,7 @@ var initLogPath = function () {
     }
   }
 }
-initLogPath();
+// initLogPath();
 
 
 // 引入环境配置文件

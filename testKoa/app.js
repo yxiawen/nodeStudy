@@ -14,6 +14,13 @@ api
 */
 const api = require('./routes/api/user_router')
 
+/* 引用格式化输出 */
+const response_formatter = require('./middlewares/response_formatter')
+
+// 添加格式化输出中间件
+app.use(response_formatter('^/api'))
+
+
 // error handler
 onerror(app)
 
@@ -36,7 +43,6 @@ app.use(async (ctx, next) => {
   // await next()
   // const ms = new Date() - start
   // console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
-
   var ms;
   try {
     // 开始下一个中间件
@@ -52,9 +58,6 @@ app.use(async (ctx, next) => {
     logUtil.logError(ctx, error, ms);
   }
 })
-//添加格式化处理响应结果的中间件，在添加路由之前调用
-//仅对/api开头的url进行格式化处理
-// app.use(response_formatter('^/api'));
 
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
