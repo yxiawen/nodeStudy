@@ -47,8 +47,6 @@ app.use(async (ctx, next) => {
   try {
     // 开始下一个中间件
     await next()
-    console.log('success text')
-
     ms = new Date() - start
 
     // 记录响应日志
