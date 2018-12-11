@@ -11,6 +11,7 @@ var resLogger = log4js.getLogger('resLogger')
 
 //封装错误日志
 logUtil.logError = function (ctx, error, resTime) {
+  console.log('logError')
   if (ctx && error) {
     errorLogger.error(formatError(ctx, error, resTime));
   }
@@ -18,6 +19,7 @@ logUtil.logError = function (ctx, error, resTime) {
 
 //封装响应日志
 logUtil.logResponse = function (ctx, resTime) {
+  console.log('logResponse')
   if (ctx) {
     resLogger.info(formatRes(ctx, resTime));
   }
@@ -26,7 +28,7 @@ logUtil.logResponse = function (ctx, resTime) {
 
 // 格式化响应日志
 var formatRes = function (ctx, resTime) {
-  var logText = new String();
+  let logText = new String();
 
   // 响应日志开始
   logText += '\n' + '****************** response log start ****************' + '\n';
@@ -49,7 +51,7 @@ var formatRes = function (ctx, resTime) {
 
 // 格式化错误日志
 var formatError = function (ctx, err, resTime) {
-  var logText = new String()
+  let logText = new String()
 
   // 错误信息开始
   logText += '\n' + '************************ error log start ********************' + '\n';

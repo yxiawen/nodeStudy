@@ -2,15 +2,15 @@ module.exports = {
   "appenders": {
     "access": {
       "type": "dateFile",
-      "filename": "log/access.log",
+      "filename": "logs/access.log",
       "pattern": "-yyyy-MM-dd"
     },
     // "rule-console": {
     //   "type": "console"
     // },
-    "rule-file": {
+    "rule-response": {
       "type": "dateFile",
-      "filename": "log/server-",
+      "filename": "logs/response/server-",
       "encoding": "utf-8",
       "maxLogSize": 10000000,
       "numBackups": 3,
@@ -19,22 +19,30 @@ module.exports = {
     },
     "rule-error": {
       "type": "dateFile",
-      "filename": "log/error-",
+      "filename": "logs/error/error-",
       "encoding": "utf-8",
       "maxLogSize": 1000000,
       "numBackups": 3,
       "pattern": "yyyy-MM-dd.log",
       "alwaysIncludePattern": true
-    }
+    },
   },
   "categories": {
+    "rule-response": {
+      "appenders": ['rule-response'],
+      "level": 'info'
+    },
+    "rule-error": {
+      "appenders": ['rule-error'],
+      "level": 'error'
+    },
     "default": {
       "appenders": [
         // "rule-console",
-        "rule-file",
+        "rule-response",
         "rule-error"
       ],
-      "level": "debug"
+      "level": "trace"
     },
 
     "http": {

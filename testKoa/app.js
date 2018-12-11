@@ -47,12 +47,14 @@ app.use(async (ctx, next) => {
   try {
     // 开始下一个中间件
     await next()
+    console.log('success text')
 
     ms = new Date() - start
 
     // 记录响应日志
     logUtil.logResponse(ctx, ms)
   } catch (error) {
+    console.log('error text')
     ms = new Date() - start;
     //记录异常日志
     logUtil.logError(ctx, error, ms);
