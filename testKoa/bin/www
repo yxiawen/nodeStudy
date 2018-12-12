@@ -20,12 +20,14 @@ var confirmPath = function (pathStr) {
   }
 }
 
-/* 初始化log相关目录 */
+/**
+ * 初始化log相关目录
+ */
 var initLogPath = function () {
-  // 创建log跟目录'logs'
+  //创建log的根目录'logs'
   if (logConfig.baseLogPath) {
     confirmPath(logConfig.baseLogPath)
-    console.log(logConfig.baseLogPath + logConfig.appenders[0].path)
+    //根据不同的logType创建不同的文件目录
     for (var i = 0, len = logConfig.appenders.length; i < len; i++) {
       if (logConfig.appenders[i].path) {
         confirmPath(logConfig.baseLogPath + logConfig.appenders[i].path);
@@ -33,7 +35,7 @@ var initLogPath = function () {
     }
   }
 }
-// initLogPath();
+initLogPath();
 
 
 // 引入环境配置文件
