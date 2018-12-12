@@ -48,11 +48,9 @@ app.use(async (ctx, next) => {
     // 开始下一个中间件
     await next()
     ms = new Date() - start
-
     // 记录响应日志
     logUtil.logResponse(ctx, ms)
   } catch (error) {
-    console.log('error text')
     ms = new Date() - start;
     //记录异常日志
     logUtil.logError(ctx, error, ms);
