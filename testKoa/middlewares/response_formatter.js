@@ -14,7 +14,7 @@ var response_formatter = async (ctx, next) => {
   } else {
     ctx.body = {
       code: 0,
-      message: 'success'
+      message: 'false'
     }
   }
 }
