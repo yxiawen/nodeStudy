@@ -75,7 +75,7 @@ const createAllTables = async () => {
     console.log('sql脚本执行结束！')
     console.log('请按 ctrl + c 键退出！')
 }
-createAllTables()
+// createAllTables()
 
 
 // 引入环境配置文件
