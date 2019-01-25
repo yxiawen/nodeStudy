@@ -15,26 +15,26 @@ var logConfig = require('../config/log_config')
 
 /* 确定目录是否存在，不存在则创建目录 */
 var confirmPath = function (pathStr) {
-    if (!fs.existsSync(pathStr)) {
-        fs.mkdirSync(pathStr)
-        console.log('createPath: ' + pathStr);
-    }
+  if (!fs.existsSync(pathStr)) {
+    fs.mkdirSync(pathStr)
+    console.log('createPath: ' + pathStr);
+  }
 }
 
 /**
  * 初始化log相关目录
  */
 var initLogPath = function () {
-    //创建log的根目录'logs'
-    if (logConfig.baseLogPath) {
-        confirmPath(logConfig.baseLogPath)
-        //根据不同的logType创建不同的文件目录
-        for (var i = 0, len = logConfig.appenders.length; i < len; i++) {
-            if (logConfig.appenders[i].path) {
-                confirmPath(logConfig.baseLogPath + logConfig.appenders[i].path);
-            }
-        }
+  //创建log的根目录'logs'
+  if (logConfig.baseLogPath) {
+    confirmPath(logConfig.baseLogPath)
+    //根据不同的logType创建不同的文件目录
+    for (var i = 0, len = logConfig.appenders.length; i < len; i++) {
+      if (logConfig.appenders[i].path) {
+        confirmPath(logConfig.baseLogPath + logConfig.appenders[i].path);
+      }
     }
+  }
 }
 initLogPath();
 
@@ -42,15 +42,17 @@ initLogPath();
 /*项目建表初始化*/
 
 const getSqlContentMap = require('../utils/get-sql-content-map');
-const {query} = require('../utils/db');
+const {
+  query
+} = require('../utils/db');
 
 //打印脚本日志
 const eventLog = function (err, sqlFile, index) {
-    if (err) {
-        console.log(`[ERROR] sql脚本文件: ${sqlFile} 第${index + 1}条脚本 执行失败 o(╯□╰)o ！`)
-    } else {
-        console.log(`[SUCCESS] sql脚本文件: ${sqlFile} 第${index + 1}条脚本 执行成功 O(∩_∩)O !`)
-    }
+  if (err) {
+    console.log(`[ERROR] sql脚本文件: ${sqlFile} 第${index + 1}条脚本 执行失败 o(╯□╰)o ！`)
+  } else {
+    console.log(`[SUCCESS] sql脚本文件: ${sqlFile} 第${index + 1}条脚本 执行成功 O(∩_∩)O !`)
+  }
 }
 
 //获取所有脚本内容
@@ -58,22 +60,22 @@ let sqlContentMap = getSqlContentMap()
 
 // 执行建表sql脚本
 const createAllTables = async () => {
-    for (let key in sqlContentMap) {
-        let sqlShell = sqlContentMap[key]
-        let sqlShellList = sqlShell.split(';')
-        for (let [i, shell] of sqlShellList.entries()) {
-            if (shell.trim()) {
-                let result = await query(shell)
-                if (result.serverStatus * 1 === 2) {
-                    eventLog(null, key, i)
-                } else {
-                    eventLog(true, key, i)
-                }
-            }
+  for (let key in sqlContentMap) {
+    let sqlShell = sqlContentMap[key]
+    let sqlShellList = sqlShell.split(';')
+    for (let [i, shell] of sqlShellList.entries()) {
+      if (shell.trim()) {
+        let result = await query(shell)
+        if (result.serverStatus * 1 === 2) {
+          eventLog(null, key, i)
+        } else {
+          eventLog(true, key, i)
         }
+      }
     }
-    console.log('sql脚本执行结束！')
-    console.log('请按 ctrl + c 键退出！')
+  }
+  console.log('sql脚本执行结束！')
+  console.log('请按 ctrl + c 键退出！')
 }
 // createAllTables()
 
@@ -110,18 +112,18 @@ server.on('listening', onListening);
  */
 
 function normalizePort(val) {
-    var port = parseInt(val, 10);
-    if (isNaN(port)) {
-        // named pipe
-        return val;
-    }
+  var port = parseInt(val, 10);
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
 
-    if (port >= 0) {
-        // port number
-        return port;
-    }
+  if (port >= 0) {
+    // port number
+    return port;
+  }
 
-    return false;
+  return false;
 }
 
 /**
@@ -129,27 +131,27 @@ function normalizePort(val) {
  */
 
 function onError(error) {
-    if (error.syscall !== 'listen') {
-        throw error;
-    }
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
 
-    var bind = typeof port === 'string' ?
-        'Pipe ' + port :
-        'Port ' + port;
+  var bind = typeof port === 'string' ?
+    'Pipe ' + port :
+    'Port ' + port;
 
-    // handle specific listen errors with friendly messages
-    switch (error.code) {
-        case 'EACCES':
-            console.error(bind + ' requires elevated privileges');
-            process.exit(1);
-            break;
-        case 'EADDRINUSE':
-            console.error(bind + ' is already in use');
-            process.exit(1);
-            break;
-        default:
-            throw error;
-    }
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
 }
 
 /**
@@ -157,9 +159,9 @@ function onError(error) {
  */
 
 function onListening() {
-    var addr = server.address();
-    var bind = typeof addr === 'string' ?
-        'pipe ' + addr :
-        'port ' + addr.port;
-    debug('Listening on ' + bind);
+  var addr = server.address();
+  var bind = typeof addr === 'string' ?
+    'pipe ' + addr :
+    'port ' + addr.port;
+  debug('Listening on ' + bind);
 }
