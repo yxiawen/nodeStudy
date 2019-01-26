@@ -9,5 +9,11 @@ class UserController extends Controller {
     const userInfo = await ctx.service.user.find(userId);
     ctx.body = userInfo;
   }
+  async create() {
+    const {
+      ctx,
+    } = this;
+    ctx.body = '创建用户';
+  }
 }
 module.exports = UserController;

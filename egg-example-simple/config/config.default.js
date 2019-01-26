@@ -23,5 +23,17 @@ module.exports = appInfo => {
     pageSize: 5,
     serverUrl: 'https://hacker-news.firebaseio.com/v0',
   };
+  config.security = {
+    csrf: {
+      enable: true,
+      headerName: 'csrfToken',
+    },
+  };
+  config.cors = {
+    // {string|Function}
+    origin: '*',
+    // {string|Array}
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
+  };
   return config;
 };
