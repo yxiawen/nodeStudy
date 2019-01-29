@@ -12,7 +12,7 @@ module.exports = {
       useNewUrlParser: true
     })
     dbConnect.on('open', () => {
-      console.log('连接成功！')
+      console.log('mongod连接成功！')
     })
     dbConnect.on('error', err => {
       console.log(err)
