@@ -11,13 +11,22 @@
 {% block body %}
 <main class="login-container">
   <div class="code-container" id="j_container">
-    <div class="login-title">请打开相册小程序进行扫码登录</div>
-    <div id="j_qrcode" class="qrcode" data-id={{qrcode}}>
+    <div class="login-title">输入账号密码登录</div>
+    <!-- <div id="j_qrcode" class="qrcode" data-id={{qrcode}}>
       <div class="renew-code" id="j_renew">二维码已过期 点我更新</div>
       <span class="border-deco deco-left deco-top"></span>
       <span class="border-deco deco-right deco-top"></span>
       <span class="border-deco deco-left deco-bottom"></span>
       <span class="border-deco deco-right deco-bottom"></span>
+    </div> -->
+    <div class="login">
+      <form method="POST" action="http://localhost:4001/login">
+        <input name="name" type="text" placeholder="输入用户名：">
+        <br>
+        <input name="password" type="text" placeholder="输入密码：">
+        <br>
+        <button>登录</button><a href="/register">注册</a>
+      </form>
     </div>
   </div>
   <div class="alert alert-warning" id="j_warning" role="alert">
@@ -57,5 +66,5 @@
 {% block extra %}
 {{ super() }}
 <script src="../js/qrcode.js"></script>
-<script src="../js/login.js"></script>
+<!-- <script src="../js/login.js"></script> -->
 {% endblock %}

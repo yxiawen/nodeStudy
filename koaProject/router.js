@@ -1,5 +1,6 @@
 const router = require('koa-router')();
 const loginController = require('./controller/login')
+const registerController = require('./controller/register')
 // const photoController = require('./controller/photo')
 // const userController = require('./controller/user')
 
@@ -12,6 +13,9 @@ module.exports = (app) => {
   router.get('/token', loginController.getToken)
   router.get('/check', loginController.checkAuth)
 
+
+  //注册
+  router.get('/register', registerController.index)
 
   // 获取照片列表
   // router.get('/photos/:status', photoController.getPhotos)
@@ -26,5 +30,5 @@ module.exports = (app) => {
   // 退出登陆
   // router.get('/logout', loginController.logout)
 
-  // app.use(router.routes()).use(router.allowedMethods());
+  app.use(router.routes()).use(router.allowedMethods());
 }

@@ -7,7 +7,7 @@ module.exports = {
       ctx.status = 302
       ctx.redirect('/photos/all')
     } else {
-      await ctx.render('login/login')
+      await ctx.render('user/login')
     }
   },
   getQrcode: async (ctx, next) => {
