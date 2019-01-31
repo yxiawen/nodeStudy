@@ -9,6 +9,7 @@ const dbConnect = mongoose.connection
 module.exports = {
   open() {
     mongoose.connect(`mongodb://admin:123456@127.0.0.1:27017/album`, {
+      useCreateIndex: true,
       useNewUrlParser: true
     })
     dbConnect.on('open', () => {

@@ -1,5 +1,5 @@
 const crypto = require('crypto')
-const secret = 'ikcamp_2018_06'
+const secret = 'my-album'
 const algorithm = 'aes-256-cbc'
 
 function encode(id) {

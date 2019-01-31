@@ -2,16 +2,12 @@ const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
   userId: {
-    type: String,
-    index: true,
-    unique: true
+    type: Number,
+    index: true
   },
   created: {
     type: Date,
     default: Date.now()
-  },
-  lastLogin: {
-    type: Date
   },
   name: {
     type: String,
