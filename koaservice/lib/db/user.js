@@ -1,6 +1,11 @@
 const {
   User
 } = require('./model')
+const {
+  encode,
+  decode
+} = require('../crypto')
+const md5 = require('js-md5')
 
 module.exports = {
   //查询
@@ -75,5 +80,30 @@ module.exports = {
       'new': true
     })
     return sequenceDocument.sequence_value
+  },
+  login(loginInput, password) {
+    return new Promise((resolve, reject) => {
+      User.findOne({
+        password: md5(password),
+        '$or': [{
+            name: loginInput
+          },
+          {
+            email: loginInput
+          }
+        ]
+      }, (err, res) => {
+        if (err) {
+          reject(err)
+        } else {
+          if (res) {
+            //存在
+            resolve(res)
+          } else {
+            resolve(null)
+          }
+        }
+      })
+    })
   }
 }

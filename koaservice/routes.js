@@ -1,6 +1,9 @@
 const Router = require('koa-router')
 const router = new Router()
 const User = require('./lib/db/user')
+const md5 = require('js-md5')
+const jsonwebtoken = require('jsonwebtoken')
+const secret = require('./config.js').secret
 
 function getPageParams(context) {
   return {
@@ -9,14 +12,6 @@ function getPageParams(context) {
   }
 }
 
-router.post('/login', async (ctx, next) => {
-  // const code = context.query.code
-  // ctx.logger.info(`[login] 用户登陆Code为${code}`)
-  ctx.body = {
-    status: 0,
-    data: '登录'
-  }
-})
 router.post('/register', async (ctx, next) => {
   ctx.response.type = 'json'
   const name = ctx.request.body.name
@@ -47,7 +42,7 @@ router.post('/register', async (ctx, next) => {
           'mesg': '密码不一致！'
         }
       } else {
-        getInfo.password = require('./lib/crypto').encode(getInfo.password)
+        getInfo.password = md5(getInfo.password)
         User.save(getInfo)
         ctx.body = {
           'code': 1,
@@ -62,10 +57,29 @@ router.post('/register', async (ctx, next) => {
       data: '用户名邮箱密码不能为空！'
     }
   }
-  // ctx.logger.info(`[login] 用户登陆Code为${code}`)
-  // ctx.body = {
-  //   status: 0,
-  //   data: '注册'
-  // }
+})
+router.post('/login', async (ctx, next) => {
+  let result = await User.login(ctx.request.body.name, ctx.request.body.password)
+  if (result) {
+    let userInfo = {}
+    userInfo.name = result.name
+    userInfo.email = result.email
+    ctx.response.body = {
+      'code': '200',
+      'data': {
+        info: userInfo,
+        token: jsonwebtoken.sign({
+          data: userInfo,
+          exp: Math.floor(Date.now() / 1000) + (60 * 60)
+        }, secret)
+      }
+    }
+  } else {
+    ctx.response.body = {
+      'code': '400',
+      'data': {},
+      'mesg': '账户或者密码错误！'
+    }
+  }
 })
 module.exports = router
