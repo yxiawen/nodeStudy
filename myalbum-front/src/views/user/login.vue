@@ -5,7 +5,8 @@
         v-model="showModel"
         :mask='false'
         :footer-hide='true'
-        title="登录"
+        @on-visible-change='closeModel'
+        title="Login"
       >
         <Form
           ref="formInline"
@@ -47,12 +48,15 @@
               </Input>
             </FormItem>
           </div>
-          <div>
+          <div class="modelBottom">
             <FormItem style="width: 100%;text-align: center">
               <Button
                 type="primary"
                 @click="handleSubmit('formInline')"
-              >Signin</Button>
+              >Login</Button>
+              <router-link :to="{
+                name:'register'
+              }">SingUp</router-link>
             </FormItem>
           </div>
         </Form>
@@ -71,11 +75,11 @@ export default {
       },
       ruleInline: {
         user: [
-          { required: true, message: 'Please fill in the user name', trigger: 'blur' }
+          { required: true, message: '用户名不能为空！', trigger: 'blur' }
         ],
         password: [
-          { required: true, message: 'Please fill in the password.', trigger: 'blur' },
-          { type: 'string', min: 6, message: 'The password length cannot be less than 6 bits', trigger: 'blur' }
+          { required: true, message: '密码不能为空！', trigger: 'blur' },
+          { type: 'string', min: 6, message: '请输入6位数的密码！', trigger: 'blur' }
         ]
       }
     }
@@ -84,11 +88,17 @@ export default {
     handleSubmit(name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
-          this.$Message.success('Success!');
+          this.$Message.success('Success!')
         } else {
-          this.$Message.error('Fail!');
+          this.$Message.error('Fail!')
         }
       })
+    },
+    closeModel(e) {
+      console.log(e)
+      if (e === false) {
+        this.$router.go(-1)
+      }
     }
   }
 }

@@ -38,7 +38,7 @@
             </BreadcrumbItem> -->
           </Breadcrumb>
           <Card>
-            <div style="height: 600px">
+            <div style="min-height: 600px">
               <router-view />
             </div>
           </Card>
@@ -57,12 +57,12 @@ export default {
   methods: {
     users() {
       this.$router.push({
-        name: 'photo'
+        name: 'users'
       })
     },
     album() {
       this.$router.push({
-        name: 'about'
+        name: 'photoGroup'
       })
     }
   },
