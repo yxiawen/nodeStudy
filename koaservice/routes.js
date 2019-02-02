@@ -24,20 +24,20 @@ router.post('/register', async (ctx, next) => {
     let queryName = await User.queryUsername(name)
     if (queryEmail) {
       ctx.response.body = {
-        'code': 0,
+        'code': '400',
         'data': {},
-        'mesg': '该邮箱已经存在哦'
+        'mesg': '该邮箱已经存在!'
       }
     } else if (queryName) {
       ctx.body = {
-        'code': 0,
+        'code': '400',
         'data': {},
         'mesg': '用户名已存在!'
       }
     } else {
       if (pwd !== pwdRe) {
         ctx.body = {
-          'code': 1,
+          'code': '400',
           'data': {},
           'mesg': '密码不一致！'
         }
@@ -45,7 +45,7 @@ router.post('/register', async (ctx, next) => {
         getInfo.password = md5(getInfo.password)
         User.save(getInfo)
         ctx.body = {
-          'code': 1,
+          'code': '200',
           'data': {},
           'mesg': '保存成功'
         }

@@ -22,7 +22,7 @@
               <Input
                 type="text"
                 v-model="formInline.user"
-                placeholder="Username"
+                placeholder="Username or Email"
               >
               <Icon
                 type="ios-person-outline"
@@ -84,13 +84,29 @@ export default {
       }
     }
   },
+  created() {
+    // console.log(this.Cookies)
+  },
   methods: {
     handleSubmit(name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
-          this.$Message.success('Success!')
+          // this.$Message.success('成功!')
+          let userInfo = {}
+          userInfo.name = this.formInline.user
+          userInfo.password = this.formInline.password
+          this.$http.post(`${this.domain}/login`, userInfo).then(res => {
+            if (res.data.code === '200') {
+              this.Cookies.set('loginToken', res.data.data.token)
+              this.$router.push({
+                name: 'home'
+              })
+            } else {
+              this.$Message.error(`${res.data.mesg}`)
+            }
+          }).catch()
         } else {
-          this.$Message.error('Fail!')
+          this.$Message.error('输入必要的信息!')
         }
       })
     },

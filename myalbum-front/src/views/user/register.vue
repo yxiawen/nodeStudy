@@ -101,22 +101,22 @@ export default {
   data() {
     const validatePass = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('输入密码！'));
+        callback(new Error('输入密码！'))
       } else {
         if (this.formInline.passwdCheck !== '') {
           // 对第二个密码框单独验证
-          this.$refs.formCustom.validateField('passwdCheck');
+          this.$refs.formInline.validateField('passwdCheck')
         }
-        callback();
+        callback()
       }
     }
     const validatePassCheck = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('再次输入密码！'));
+        callback(new Error('再次输入密码！'))
       } else if (value !== this.formInline.password) {
-        callback(new Error('输入的密码不一致！'));
+        callback(new Error('输入的密码不一致！'))
       } else {
-        callback();
+        callback()
       }
     }
     return {
@@ -148,9 +148,37 @@ export default {
     handleSubmit(name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
-          this.$Message.success('Success!')
+          // this.$Message.success('成功!')
+          let postInfo = {
+            name: this.formInline.user,
+            password: this.formInline.password,
+            passwordRe: this.formInline.passwdCheck,
+            email: this.formInline.email
+          }
+          this.$http.post(`${this.domain}/register`, postInfo).then(res => {
+            if (res.data.code === '200') {
+              this.$Message.success('注册成功!')
+              this.$http.post(`${this.domain}/login`, {
+                name: this.formInline.user,
+                password: this.formInline.password
+              }).then(res => {
+                if (res.data.code === '200') {
+                  this.Cookies.set('loginToken', res.data.data.token)
+                  this.$router.push({
+                    name: 'home'
+                  })
+                } else {
+                  this.$Message.error(`${res.data.mesg}`)
+                }
+              }).catch()
+            } else {
+              this.$Message.error(`${res.data.mesg}`)
+            }
+          }).catch(err => {
+            console.log(err)
+          })
         } else {
-          this.$Message.error('Fail!')
+          this.$Message.error('输入必要信息!')
         }
       })
     },
