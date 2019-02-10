@@ -12,7 +12,14 @@ Vue.prototype.$http = axios
 Vue.prototype.domain = 'http://127.0.0.1:4001'
 Vue.prototype.Cookies = Cookies
 Vue.use(iView)
-
+axios.interceptors.request.use((config) => {
+  // 请求前
+  console.log('请求前')
+  return config
+}, (err) => {
+  console.log('err')
+  return Promise.reject(err)
+})
 Vue.config.productionTip = false
 
 new Vue({

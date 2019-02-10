@@ -64,6 +64,7 @@ router.post('/login', async (ctx, next) => {
     let userInfo = {}
     userInfo.name = result.name
     userInfo.email = result.email
+    userInfo._id = result._id
     ctx.response.body = {
       'code': '200',
       'data': {
@@ -80,6 +81,11 @@ router.post('/login', async (ctx, next) => {
       'data': {},
       'mesg': '账户或者密码错误！'
     }
+  }
+})
+router.post('/photogroup/create', async(ctx, next) => {
+  ctx.body = {
+    data:"创建相册"
   }
 })
 module.exports = router
