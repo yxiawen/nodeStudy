@@ -4,6 +4,7 @@ const bodyParser = require('koa-bodyparser')
 const staticFiles = require('koa-static')
 const jwt = require('koa-jwt')
 const errorHandle = require('./middlewares/errorHandle')
+const auth = require('./middlewares/auth')
 const app = new Koa()
 const JSON_MIME = 'application/json'
 const {
@@ -14,6 +15,7 @@ const cors = require('@koa/cors')
 const logger = require('./middlewares/log')
 const secret = require('./config.js').secret
 open()
+
 app.use(logger)
 app.use(cors({
   origin: '*'
@@ -31,7 +33,7 @@ app.use(async (context, next) => {
   context.type = JSON_MIME
   await next()
 })
-
+app.use(auth)
 app.use(router.routes())
 app.use(router.allowedMethods())
 app.use(errorHandle).use(jwt({

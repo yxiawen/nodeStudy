@@ -97,9 +97,9 @@ export default {
           userInfo.password = this.formInline.password
           this.$http.post(`${this.domain}/login`, userInfo).then(res => {
             if (res.data.code === '200') {
-              this.Cookies.set('userToken', res.data.data.token)
+              this.$store.commit('Login', res.data.data.token)
               this.$router.push({
-                name: 'home'
+                name: 'users'
               })
             } else {
               this.$Message.error(`${res.data.mesg}`)

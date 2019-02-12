@@ -65,23 +65,35 @@
           style="width: 300px"
         />
       </div>
-      <div class="coverImgBox">
+      <div
+        class="coverImgBox"
+        v-if='false'
+      >
         <div class="selectdefaultCover">
           <Button @click="selectdefaultCover">选择默认封面图</Button></div>
         <Upload action="//jsonplaceholder.typicode.com/posts/">
           <Button icon="ios-cloud-upload-outline">上传相册封面图</Button>
         </Upload>
       </div>
-      <div class="defaultCoverBox" v-if="defaultCoverShow">
+      <div
+        class="defaultCoverBox"
+        v-if="defaultCoverShow"
+      >
         <div class="defaulImgBox">
           <div class="imgItem">
             <div class="imgWrap">
-              <img :src="`${baseUrl}${images.groupCover}`" alt="">
+              <img
+                :src="`${baseUrl}${images.groupCover}`"
+                alt=""
+              >
             </div>
           </div>
           <div class="imgItem">
             <div class="imgWrap">
-              <img :src="`${baseUrl}${images.groupCover}`" alt="">
+              <img
+                :src="`${baseUrl}${images.groupCover}`"
+                alt=""
+              >
             </div>
           </div>
         </div>
@@ -108,13 +120,21 @@ export default {
     },
     saveGroup() {
       this.showAddModel = false
-      // this.$http.post(`${this.domain}/`).then().catch()
+      this.$http.post(`${this.domain}/photogroup/create`, {
+        albumname: this.addGroupName
+      }).then(res => {
+        console.log(res.data)
+      }).catch()
     },
     cancleGroup() {
       this.showAddModel = false
     },
     selectdefaultCover() {
-      this.defaultCoverShow = this.defaultCoverShow === true ? false : true
+      if (this.defaultCoverShow) {
+        this.defaultCoverShow = false
+      } else {
+        this.defaultCoverShow = true
+      }
     }
   }
 }
@@ -153,7 +173,7 @@ export default {
   margin-top: 20px;
 }
 .selectdefaultCover {
- margin-right: 20px;
+  margin-right: 20px;
 }
 .defaulImgBox {
   display: flex;

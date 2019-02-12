@@ -1,6 +1,7 @@
 const Router = require('koa-router')
 const router = new Router()
 const User = require('./lib/db/user')
+const albumController = require('./lib/db/Album')
 const md5 = require('js-md5')
 const jsonwebtoken = require('jsonwebtoken')
 const secret = require('./config.js').secret
@@ -83,9 +84,5 @@ router.post('/login', async (ctx, next) => {
     }
   }
 })
-router.post('/photogroup/create', async(ctx, next) => {
-  ctx.body = {
-    data:"创建相册"
-  }
-})
+router.post('/photogroup/create', albumController.add)
 module.exports = router

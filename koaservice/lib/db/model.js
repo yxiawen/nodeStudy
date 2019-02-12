@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
   }
 })
 const albumSchema = new mongoose.Schema({
-  UserId: { //关联用户
+  userId: { //关联用户
     type: String
   },
   name: { //相册名称

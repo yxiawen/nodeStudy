@@ -16,17 +16,17 @@ export default new Router({
     children: [{
       path: '/users',
       name: 'users',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/Users.vue')
+      component: () => import(/* webpackChunkName: "about" */ './views/Users.vue'),
+      meta: {
+        requireAuth: true
+      }
     }, {
       path: '/photogroup',
       name: 'photoGroup',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/photo/PhotoGroup.vue')
+      component: () => import(/* webpackChunkName: "about" */ './views/photo/PhotoGroup.vue'),
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/photos/:id',
@@ -34,8 +34,12 @@ export default new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/photo/Photos.vue')
-    }]
+      component: () => import(/* webpackChunkName: "about" */ './views/photo/Photos.vue'),
+      meta: {
+        requireAuth: true
+      }
+    }
+    ]
   },
   {
     path: '/login',
