@@ -45,6 +45,7 @@ router.post('/register', async (ctx, next) => {
       } else {
         getInfo.password = md5(getInfo.password)
         User.save(getInfo)
+        console.log(getInfo)
         ctx.body = {
           'code': '200',
           'data': {},
@@ -84,5 +85,5 @@ router.post('/login', async (ctx, next) => {
     }
   }
 })
-router.post('/photogroup/create', albumController.add)
+router.post('/photogroup/create', albumController.addAlbum)
 module.exports = router

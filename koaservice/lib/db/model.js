@@ -65,5 +65,5 @@ const photoSchema = new mongoose.Schema({
 module.exports = {
   User: mongoose.model('user', userSchema),
   Phopto: mongoose.model('photo', photoSchema),
-  Album: mongoose.model('album', albumSchema)
+  Albums: mongoose.model('albums', albumSchema)
 }

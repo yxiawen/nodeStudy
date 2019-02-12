@@ -13,6 +13,9 @@ export default new Router({
     path: '/',
     name: 'home',
     component: Index,
+    meta: {
+      requireAuth: true
+    },
     children: [{
       path: '/users',
       name: 'users',
