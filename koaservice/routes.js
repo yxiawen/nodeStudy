@@ -1,7 +1,7 @@
 const Router = require('koa-router')
 const router = new Router()
 const User = require('./lib/db/user')
-const albumController = require('./lib/db/Album')
+const albumController = require('./controllers/albumController')
 const md5 = require('js-md5')
 const jsonwebtoken = require('jsonwebtoken')
 const secret = require('./config.js').secret
@@ -86,4 +86,5 @@ router.post('/login', async (ctx, next) => {
   }
 })
 router.post('/photogroup/create', albumController.addAlbum)
+router.get('/photogroup/getalbum', albumController.getAlbum)
 module.exports = router

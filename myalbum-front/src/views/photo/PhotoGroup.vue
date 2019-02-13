@@ -136,6 +136,13 @@ export default {
         this.defaultCoverShow = true
       }
     }
+  },
+  created() {
+    this.$http.get(`${this.domain}/photogroup/getAlbum`).then(res => {
+      console.log(res)
+    }).catch(err => {
+      console.log(err)
+    })
   }
 }
 </script>
