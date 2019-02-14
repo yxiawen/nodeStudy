@@ -16,15 +16,26 @@
       </Select>
     </div>
     <div class="photoBox">
-      <div class="photoItem">
+      <div class="photoItem" v-for="(item, index) in images" :key="item.index">
         <div class="photoWrap">
           <div class="imgWrap">
             <img
-              :src="`${baseUrl}${images.groupCover}`"
+              :src="item.url"
               alt=""
             >
-            <span>相册1</span>
           </div>
+        </div>
+      </div>
+      <div class="photoItem">
+        <div class="photoWrap uploadBox">
+          <Upload
+            :action="`${this.domain}/upload`"
+            :format="['jpg','jpeg','png']"
+            :show-upload-list="false"
+            :on-success="uploadSuccess"
+          >
+            <Button icon="ios-cloud-upload-outline">上传文件</Button>
+          </Upload>
         </div>
       </div>
     </div>
@@ -38,9 +49,7 @@ export default {
   data() {
     return {
       baseUrl: process.env.BASE_URL,
-      images: {
-        groupCover: 'images/timg.jpeg'
-      },
+      images: [],
       photoSort: [
         {
           value: '全部照片',
@@ -61,8 +70,15 @@ export default {
       ],
       photoSelect: ''
     }
+  },
+  methods: {
+    uploadSuccess(res, file) {
+      console.log(res)
+      let imgItem = {}
+      imgItem.url = `${this.domain}/${res.filename}`
+      this.images.push(imgItem)
+    }
   }
-
 }
 </script>
 <style scoped>
@@ -83,5 +99,10 @@ export default {
 }
 .photoTop {
   padding-left: 10px;
+}
+.uploadBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 </style>

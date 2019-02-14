@@ -4,36 +4,19 @@
       <Button>多选</Button>
     </div>
     <div class="photoBox">
-      <div class="photoItem">
+      <div class="photoItem" v-for="(item, index) in albumList" :key="item.index">
         <div class="photoWrap">
           <div class="imgWrap">
             <router-link :to="{
             name: 'photos',
             params: {
-              id: 1
+              id: item._id
             }
           }"><img
                 :src="`${baseUrl}${images.groupCover}`"
                 alt=""
               >
-              <span>相册1</span>
-            </router-link>
-          </div>
-        </div>
-      </div>
-      <div class="photoItem">
-        <div class="photoWrap">
-          <div class="imgWrap">
-            <router-link :to="{
-            name: 'photos',
-            params: {
-              id: 2
-            }
-          }"><img
-                :src="`${baseUrl}${images.groupCover}`"
-                alt=""
-              >
-              <span>相册2</span>
+              <span>{{item.name}}</span>
             </router-link>
           </div>
         </div>
@@ -111,7 +94,8 @@ export default {
       defaultCoverShow: false,
       images: {
         groupCover: 'images/timg.jpeg'
-      }
+      },
+      albumList: []
     }
   },
   methods: {
@@ -138,8 +122,8 @@ export default {
     }
   },
   created() {
-    this.$http.get(`${this.domain}/photogroup/getAlbum`).then(res => {
-      console.log(res)
+    this.$http.get(`${this.domain}/photogroup/getalbum`).then(res => {
+      this.albumList = res.data.album
     }).catch(err => {
       console.log(err)
     })

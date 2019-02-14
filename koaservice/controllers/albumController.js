@@ -27,7 +27,6 @@ class albumController {
   }
   static async getAlbum(ctx) {
     let albumList = await AlbumModels.getalbum(ctx.user.id)
-    console.log(albumList)
     ctx.body = {
       code: '200',
       album: albumList

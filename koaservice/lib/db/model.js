@@ -49,11 +49,11 @@ const photoSchema = new mongoose.Schema({
   url: { //存储照片的地址
     type: String
   },
-  isApproved: { //照片审核
-    type: Boolean,
-    default: null, //未审核状态
-    index: true
-  },
+  // isApproved: { //照片审核
+  //   type: Boolean,
+  //   default: null, //未审核状态
+  //   index: true
+  // },
   albumId: { //相册ID
     type: mongoose.Schema.Types.ObjectId
   },

@@ -21,7 +21,7 @@ class AlbumModels {
       })
     })
   }
-  static async getalbum(userid) {
+  static async getalbum() {
     return new Promise((resolve, reject) => {
       Albums.find({}, (err, res) => {
         if(err) {
