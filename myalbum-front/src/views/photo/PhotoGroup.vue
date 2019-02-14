@@ -139,7 +139,12 @@ export default {
   },
   created() {
     this.$http.get(`${this.domain}/photogroup/getAlbum`).then(res => {
-      console.log(res)
+      console.log(res.data.album)
+      if (res.data.album.length < 0) {
+        this.$Message.info('暂时没有相册！')
+      } else {
+
+      }
     }).catch(err => {
       console.log(err)
     })
