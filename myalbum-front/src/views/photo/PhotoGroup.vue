@@ -4,7 +4,7 @@
       <Button>多选</Button>
     </div>
     <div class="photoBox">
-      <div class="photoItem" v-for="(item, index) in albumList" :key="item.index">
+      <div class="photoItem" v-for="item in albumList" :key="item.index">
         <div class="photoWrap">
           <div class="imgWrap">
             <router-link :to="{

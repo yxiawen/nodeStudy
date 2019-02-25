@@ -16,7 +16,7 @@
       </Select>
     </div>
     <div class="photoBox">
-      <div class="photoItem" v-for="(item, index) in images" :key="item.index">
+      <div class="photoItem" v-for="item in images" :key="item.index">
         <div class="photoWrap">
           <div class="imgWrap">
             <img

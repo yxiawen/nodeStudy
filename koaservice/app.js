@@ -25,7 +25,7 @@ app.use(bodyParser({
   multipart: true
 }))
 
-app.use(staticFiles(path.resolve(__dirname, './uploads'), {
+app.use(staticFiles(path.resolve(__dirname, './public'), {
   maxage: 30 * 24 * 60 * 60 * 1000
 }))
 
